@@ -123,3 +123,11 @@ tools:
         max_pages: {type: integer, default: 5, description: "Số trang"}
         max_chars: {type: integer, default: 8000, description: "Số ký tự"}
       required: [arxiv_url]
+
+  - name: summarize_video
+    description: "Tóm tắt video YouTube dựa trên transcript/phụ đề."
+    parameters:
+      type: object
+      properties:
+        url: {type: string, description: "URL video YouTube cần tóm tắt"}
+      required: [url]

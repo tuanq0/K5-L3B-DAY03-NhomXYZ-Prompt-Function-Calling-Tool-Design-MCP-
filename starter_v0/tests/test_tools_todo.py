@@ -110,13 +110,57 @@ def test_policy_instruction_like_lines_go_to_untrusted_text() -> None:
 #   2. bad / missing input from the model (empty string, wrong type, out-of-enum value)
 #   3. failure path (missing key, HTTP error, timeout) -> returns error dict, does not raise
 
-def test_my_new_tool_happy_path() -> None:
-    pytest.skip(TODO)
+
+def test_summarize_video_happy_path(monkeypatch, fake_http) -> None:
+    monkeypatch.setenv("OPENROUTER_API_KEY", "test-key")
+
+    calls = []
+
+    def fake_post(url, headers=None, json=None, timeout=None):
+        calls.append({"url": url, "headers": headers, "json": json, "timeout": timeout})
+        return FakeResponse({
+            "choices": [{"message": {"content": "Tóm tắt: video giới thiệu về AI."}}]
+        })
+
+    monkeypatch.setattr("requests.post", fake_post)
+
+    class FakeTranscript:
+        snippets = [
+            type("S", (), {"text": "Giới thiệu AI", "start": 0})(),
+            type("S", (), {"text": "Phần 2", "start": 30})(),
+        ]
+        language_code = "vi"
+
+    monkeypatch.setattr(
+        "youtube_transcript_api.YouTubeTranscriptApi",
+        lambda: type("T", (), {"fetch": staticmethod(lambda *args, **kwargs: FakeTranscript())})(),
+    )
+
+    result = TOOL_FUNCTIONS["summarize_video"](
+        url="https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+        language="vi",
+    )
+
+    assert result["tool"] == "summarize_video"
+    assert result["video_id"] == "dQw4w9WgXcQ"
+    assert "Tóm tắt" in result["summary"]
+    assert result["transcript_language"] == "vi"
+    assert calls and "Authorization" in calls[0]["headers"]
+    assert calls[0]["headers"]["Authorization"]
 
 
-def test_my_new_tool_bad_input_from_model() -> None:
-    pytest.skip(TODO)
+def test_summarize_video_bad_input_from_model() -> None:
+    result = TOOL_FUNCTIONS["summarize_video"](url="not-a-youtube-url")
+
+    assert result["tool"] == "summarize_video"
+    assert result["error"] == "ValueError"
+    assert "valid YouTube video URL" in result["message"] or "valid video ID" in result["message"]
 
 
-def test_my_new_tool_failure_returns_error_dict() -> None:
-    pytest.skip(TODO)
+def test_summarize_video_failure_returns_error_dict(monkeypatch) -> None:
+    monkeypatch.delenv("OPENROUTER_API_KEY", raising=False)
+    result = TOOL_FUNCTIONS["summarize_video"](url="https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+
+    assert result["tool"] == "summarize_video"
+    assert result["error"] == "RuntimeError"
+    assert "OPENROUTER_API_KEY" in result["message"]
