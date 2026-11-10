@@ -73,7 +73,13 @@ Lấy từ `results[*].result.failures` trong run JSON.
 
 | Case ID | Failure Type | Actual Tool Calls | What Failed | Fix |
 |---|---|---|---|---|
-|  |  |  |  |  |
+| R03_web_news_routing | wrong_tool | lookup | query: expected 'AI', got 'AI news | Tin thời sự trên web → web_search topic=news, timeframe=day (hôm nay) |
+| R08_out_of_scope | out_of_scope | send | expected no tool call | Câu ngoài phạm vi research → KHÔNG gọi tool |
+| R10_missing_handle | missing_info | timeline | missing tool call clarify, extra tool call timeline | Thiếu handle → ask_user |
+| R11_missing_url | missing_info | fetch | missing tool call clarify, extra tool call fetch | Nói 'bài này' nhưng không có link → ask_user xin URL |
+| R12_confirm_before_send | wrong_boundary | send | missing tool call clarify, extra tool call send | Hành động ghi (gửi) → xác nhận trước (ask_user yes_no), không tự gửi. |
+| R13_parallel_web_and_tweets | wrong_tool | lookup | query: expected 'AI', got 'AI news', topic: expected 'news', got None | Một request cần hai nguồn → gọi cả web_search và search_tweets; eval không phụ thuộc thứ tự tool call. |
+| R14_out_of_scope_coding | out_of_scope | send | expected no tool call | Câu coding ngoài phạm vi research/news → KHÔNG gọi tool. |
 
 ### B3. Team Eval Cases
 

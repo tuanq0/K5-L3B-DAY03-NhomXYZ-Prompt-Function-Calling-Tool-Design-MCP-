@@ -11,8 +11,7 @@
 
 | STT | Họ tên | MSSV | Email | GitHub | Vai trò |
 | --: | ------ | ---- | ----- | ------ | ------- |
-|   1 |        |      |       |        |         |
-|   2 |        |      |       |        |         |
+|   1 |    Trần Văn Tuấn    |   2A202604092   |   quyvangia2004@gmail.com    |    tuanq0    |     Leader    |
 
 ## Cá nhân
 
