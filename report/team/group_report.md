@@ -62,10 +62,10 @@ Lấy từ `starter_v0/artifacts/version_log.csv` và `starter_v0/runs/*.json`. 
 
 | Version | Changed Artifact | Hypothesis | Metric Before | Metric After | Run File |
 |---|---|---|---:|---:|---|
-| v0 | baseline |  |  |  |  |
-| v1 |  |  |  |  |  |
-| v2 |  |  |  |  |  |
-| v3 |  |  |  |  |  |
+| v0 | baseline | Đo lường prompt xấu | 0 | 0.65 | runs\v0_B_base_openrouter_20261110T193700086039.json |
+| v1 | system_prompt | Viết lại system prompt đúng hơn | 0.65 | 0.85 | runs\v1_B_base_openrouter_20261111T010607284741.json |
+| v2 | system_prompt | bảo khi hỏi lại có đăng không thì là yes-no| 0.85 | 0.85 | runs\v2_B_base_openrouter_20261111T020243676076.json |
+| v3 |  tools.yaml | clarify trả về thiếu và không đúng response type | 0.85 | 0.9 | runs\v3_B_base_openrouter_20261111T021022783384.json |
 
 ### B2. Failure Analysis
 

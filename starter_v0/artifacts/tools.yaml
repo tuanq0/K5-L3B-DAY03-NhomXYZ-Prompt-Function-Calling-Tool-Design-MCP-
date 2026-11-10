@@ -16,13 +16,13 @@
 tools:
   # ---------------- Core tools ----------------
   - name: clarify
-    description: "Gửi một câu hỏi cho người dùng."
+    description: "Hỏi người dùng khi thiếu thông tin hoặc cần xác nhận trước hành động. Luôn chọn response_type phù hợp: text để xin thông tin còn thiếu, yes_no để xác nhận trước khi gửi/đăng, choice để người dùng chọn trong options."
     parameters:
       type: object
       properties:
-        question: {type: string, default: "", description: "Câu hỏi"}
-        response_type: {type: string, enum: [text, yes_no, choice], default: "text", description: "Kiểu trả lời"}
-        options: {type: array, default: [], items: {type: string}, description: "Các lựa chọn"}
+        question: {type: string, default: "", description: "Câu hỏi cụ thể cần hỏi người dùng"}
+        response_type: {type: string, enum: [text, yes_no, choice], default: "text", description: "Luôn truyền tường minh: text khi xin thông tin còn thiếu; yes_no khi xác nhận trước khi gửi/đăng; choice khi yêu cầu chọn một phương án trong options."}
+        options: {type: array, default: [], items: {type: string}, description: "Danh sách phương án để người dùng chọn; dùng khi response_type là choice."}
       required: [question]
 
   - name: timeline
