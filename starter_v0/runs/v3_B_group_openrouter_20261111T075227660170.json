@@ -1,0 +1,613 @@
+{
+  "run_id": "v3_B_group_openrouter_20261111T075227660170",
+  "version": "v3",
+  "artifact_version": "v3+pee27919afff8+t0d1d4b7351a5",
+  "prompt_hash": "ee27919afff88e1a2dd4b5f591526547f6fda05e5b947b7a768420fd56a70415",
+  "tools_hash": "0d1d4b7351a52affb442643f2821fe6529d1f7e93a923d0b6bdd6884ee0f23a8",
+  "phase": "B",
+  "suite": "group",
+  "provider": "openrouter",
+  "model": "openai/gpt-4o-mini",
+  "system_prompt": "C:\\Users\\quyva\\OneDrive\\Desktop\\K5-L3B-DAY03-NhomXYZ-Prompt-Function-Calling-Tool-Design-MCP-\\starter_v0\\artifacts\\system_prompt.md",
+  "tools": "C:\\Users\\quyva\\OneDrive\\Desktop\\K5-L3B-DAY03-NhomXYZ-Prompt-Function-Calling-Tool-Design-MCP-\\starter_v0\\artifacts\\tools.yaml",
+  "eval_cases": "data\\eval_group.json",
+  "dataset_id": "day03_v2_research_group",
+  "dataset_role": "group",
+  "description": "Case do NHÓM tự viết thêm để cover thêm trường hợp. Mỗi case cần: id, phase='B', query HOẶC turns, failure_type (thuộc allowed_failure_types), và expect (tool_calls[...] hoặc no_tool=true). Nên kèm metadata.what_it_tests.",
+  "generated_at": "2026-11-11T07:52:27",
+  "summary": {
+    "total_cases": 10,
+    "measured_cases": 10,
+    "provider_error_cases": 0,
+    "passed_cases": 10,
+    "case_accuracy": 1.0,
+    "tool_routing_accuracy": 1.0,
+    "argument_accuracy": 1.0,
+    "multiturn_accuracy": 1.0,
+    "failure_counts": {},
+    "observed_mismatch_counts": {}
+  },
+  "results": [
+    {
+      "id": "G01_summarize_video_watch_url",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Yêu cầu tóm tắt video có URL YouTube dạng watch → gọi summarize_video với đúng URL."
+      },
+      "input": "Tóm tắt video YouTube này giúp mình: https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "summarize_video",
+            "args": {
+              "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "summarize_video",
+            "args": {
+              "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "summarize_video",
+          "args": {
+            "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          },
+          "result": {
+            "tool": "summarize_video",
+            "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+            "video_id": "dQw4w9WgXcQ",
+            "transcript_language": "en",
+            "summary": "The transcript is a lyrical rendition of the song \"Never Gonna Give You Up\" by Rick Astley. Key points include:\n\n- The singer expresses a commitment to love and loyalty, emphasizing that he will never betray or hurt the other person (00:43-00:55).\n- There is a mutual understanding of feelings between the singer and the subject, despite shyness in expressing them (01:00-01:13).\n- The chorus repeats the promises of unwavering support and honesty throughout the song (00:43-03:27).\n\nOverall, the song conveys themes of dedication and emotional honesty in a romantic relationship.",
+            "transcript_truncated": false,
+            "model": "openai/gpt-4o-mini"
+          }
+        }
+      ]
+    },
+    {
+      "id": "G02_summarize_video_short_url",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Nhận diện URL rút gọn youtu.be là link video YouTube và chuyển nguyên URL cho summarize_video."
+      },
+      "input": "Tóm tắt nội dung clip này: https://youtu.be/9bZkp7q19f0",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "summarize_video",
+            "args": {
+              "url": "https://youtu.be/9bZkp7q19f0"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "summarize_video",
+            "args": {
+              "url": "https://youtu.be/9bZkp7q19f0"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "summarize_video",
+          "args": {
+            "url": "https://youtu.be/9bZkp7q19f0"
+          },
+          "result": {
+            "tool": "summarize_video",
+            "error": "NoTranscriptFound",
+            "message": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=9bZkp7q19f0! This is most likely caused by:\n\nNo transcripts were found for any of the requested language codes: ['vi', 'en']\n\nFor this video (9bZkp7q19f0) transcripts are available in the following languages:\n\n(MANUALLY CREATED)\nNone\n\n(GENERATED)\n - ko (\"Korean (auto-generated)\")\n\n(TRANSLATION LANGUAGES)\nNone\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+          }
+        }
+      ]
+    },
+    {
+      "id": "G03_summarize_video_shorts",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Nhận diện URL YouTube Shorts là video cần tóm tắt, không nhầm với tìm kiếm web."
+      },
+      "input": "Cho mình tóm tắt YouTube Short này: https://www.youtube.com/shorts/aqz-KE-bpKQ",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "summarize_video",
+            "args": {
+              "url": "https://www.youtube.com/shorts/aqz-KE-bpKQ"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "summarize_video",
+            "args": {
+              "url": "https://www.youtube.com/shorts/aqz-KE-bpKQ"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "summarize_video",
+          "args": {
+            "url": "https://www.youtube.com/shorts/aqz-KE-bpKQ"
+          },
+          "result": {
+            "tool": "summarize_video",
+            "error": "TranscriptsDisabled",
+            "message": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=aqz-KE-bpKQ! This is most likely caused by:\n\nSubtitles are disabled for this video\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+          }
+        }
+      ]
+    },
+    {
+      "id": "G04_summarize_video_with_key_points",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Yêu cầu thêm định dạng ý chính/timestamp vẫn phải dùng summarize_video với URL được cung cấp."
+      },
+      "input": "Tóm tắt video này thành các ý chính, có timestamp nếu được: https://www.youtube.com/watch?v=jfKfPfyJRdk",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "summarize_video",
+            "args": {
+              "url": "https://www.youtube.com/watch?v=jfKfPfyJRdk"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "summarize_video",
+            "args": {
+              "url": "https://www.youtube.com/watch?v=jfKfPfyJRdk"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "summarize_video",
+          "args": {
+            "url": "https://www.youtube.com/watch?v=jfKfPfyJRdk"
+          },
+          "result": {
+            "tool": "summarize_video",
+            "error": "VideoUnplayable",
+            "message": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=jfKfPfyJRdk! This is most likely caused by:\n\nThe video is unplayable for the following reason: This live stream recording is not available.\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+          }
+        }
+      ]
+    },
+    {
+      "id": "G05_summarize_video_missing_url",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": false,
+      "metadata": {
+        "what_it_tests": "Không có URL video cụ thể → hỏi người dùng xin link thay vì đoán hoặc gọi summarize_video."
+      },
+      "input": "Tóm tắt video YouTube mới nhất của mình giúp nhé.",
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn có thể cung cấp URL của video YouTube mà bạn muốn tóm tắt không?",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn có thể cung cấp URL của video YouTube mà bạn muốn tóm tắt không?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn có thể cung cấp URL của video YouTube mà bạn muốn tóm tắt không?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "G06_multiturn_video_url_after_request",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Qua nhiều lượt, giữ yêu cầu tóm tắt ban đầu và dùng URL được cung cấp ở lượt sau."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tóm tắt video YouTube giúp mình."
+        },
+        {
+          "role": "user",
+          "content": "Đây là link: https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "summarize_video",
+            "args": {
+              "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "summarize_video",
+            "args": {
+              "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "summarize_video",
+          "args": {
+            "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          },
+          "result": {
+            "tool": "summarize_video",
+            "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+            "video_id": "dQw4w9WgXcQ",
+            "transcript_language": "en",
+            "summary": "The transcript features the lyrics to the song \"Never Gonna Give You Up\" by Rick Astley. Key points include:\n\n- The singer expresses a commitment to love and loyalty, emphasizing that he will never betray or hurt the other person (00:01 - 03:27).\n- The repeated phrases highlight promises of unwavering support and affection, reinforcing the theme of reliability in a relationship.\n- The lyrics suggest a mutual understanding of feelings between the two individuals, despite shyness in expressing them (01:00 - 02:29). \n\nOverall, the song conveys a strong message of dedication and emotional connection.",
+            "transcript_truncated": false,
+            "model": "openai/gpt-4o-mini"
+          }
+        }
+      ]
+    },
+    {
+      "id": "G07_multiturn_video_summary_style",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Ở lượt mới, xác định yêu cầu tóm tắt video và chuyển link youtu.be đúng cho tool."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Mình muốn nắm nhanh nội dung một video."
+        },
+        {
+          "role": "user",
+          "content": "Tóm tắt video này thành 3 ý chính nhé: https://youtu.be/9bZkp7q19f0"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "summarize_video",
+            "args": {
+              "url": "https://youtu.be/9bZkp7q19f0"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "summarize_video",
+            "args": {
+              "url": "https://youtu.be/9bZkp7q19f0"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "summarize_video",
+          "args": {
+            "url": "https://youtu.be/9bZkp7q19f0"
+          },
+          "result": {
+            "tool": "summarize_video",
+            "error": "NoTranscriptFound",
+            "message": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=9bZkp7q19f0! This is most likely caused by:\n\nNo transcripts were found for any of the requested language codes: ['vi', 'en']\n\nFor this video (9bZkp7q19f0) transcripts are available in the following languages:\n\n(MANUALLY CREATED)\nNone\n\n(GENERATED)\n - ko (\"Korean (auto-generated)\")\n\n(TRANSLATION LANGUAGES)\nNone\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+          }
+        }
+      ]
+    },
+    {
+      "id": "G08_multiturn_video_language",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Dùng ngữ cảnh yêu cầu tóm tắt bằng tiếng Việt và gọi summarize_video với URL ở lượt hiện tại."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Bạn tóm tắt video tiếng Anh bằng tiếng Việt được không?"
+        },
+        {
+          "role": "user",
+          "content": "Được thì làm giúp mình video này: https://www.youtube.com/watch?v=jfKfPfyJRdk"
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "summarize_video",
+            "args": {
+              "url": "https://www.youtube.com/watch?v=jfKfPfyJRdk"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "summarize_video",
+            "args": {
+              "url": "https://www.youtube.com/watch?v=jfKfPfyJRdk"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_tool",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "summarize_video",
+          "args": {
+            "url": "https://www.youtube.com/watch?v=jfKfPfyJRdk"
+          },
+          "result": {
+            "tool": "summarize_video",
+            "error": "VideoUnplayable",
+            "message": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=jfKfPfyJRdk! This is most likely caused by:\n\nThe video is unplayable for the following reason: This live stream recording is not available.\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+          }
+        }
+      ]
+    },
+    {
+      "id": "G09_multiturn_video_link_then_request",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Ghi nhớ URL đã gửi ở lượt trước khi người dùng bổ sung yêu cầu tóm tắt ở lượt sau."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Đây là video mình muốn xem: https://www.youtube.com/shorts/aqz-KE-bpKQ"
+        },
+        {
+          "role": "user",
+          "content": "Tóm tắt giúp mình, tập trung vào thông điệp chính."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "summarize_video",
+            "args": {
+              "url": "https://www.youtube.com/shorts/aqz-KE-bpKQ"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "summarize_video",
+            "args": {
+              "url": "https://www.youtube.com/shorts/aqz-KE-bpKQ"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "wrong_arg_value",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "summarize_video",
+          "args": {
+            "url": "https://www.youtube.com/shorts/aqz-KE-bpKQ"
+          },
+          "result": {
+            "tool": "summarize_video",
+            "error": "TranscriptsDisabled",
+            "message": "\nCould not retrieve a transcript for the video https://www.youtube.com/watch?v=aqz-KE-bpKQ! This is most likely caused by:\n\nSubtitles are disabled for this video\n\nIf you are sure that the described cause is not responsible for this error and that a transcript should be retrievable, please create an issue at https://github.com/jdepoix/youtube-transcript-api/issues. Please add which version of youtube_transcript_api you are using and provide the information needed to replicate the error. Also make sure that there are no open issues which already describe your problem!"
+          }
+        }
+      ]
+    },
+    {
+      "id": "G10_multiturn_clarify_for_video_url",
+      "phase": "B",
+      "suite": "group",
+      "case_suite": "group",
+      "is_multiturn": true,
+      "metadata": {
+        "what_it_tests": "Ngữ cảnh nhiều lượt vẫn thiếu URL cụ thể → hỏi người dùng xin link, không tự tìm hoặc đoán video."
+      },
+      "input": [
+        {
+          "role": "user",
+          "content": "Tóm tắt video YouTube gần đây mình xem nhé."
+        },
+        {
+          "role": "user",
+          "content": "Mình chưa gửi link, bạn hỏi lại nếu cần."
+        }
+      ],
+      "expect": {
+        "tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "response_type": "text"
+            }
+          }
+        ]
+      },
+      "result": {
+        "passed": true,
+        "routing_correct": true,
+        "args_correct": true,
+        "actual_tool_calls": [
+          {
+            "name": "clarify",
+            "args": {
+              "question": "Bạn có thể cung cấp link video YouTube mà bạn muốn tóm tắt không?",
+              "response_type": "text"
+            }
+          }
+        ],
+        "actual_text": null,
+        "case_failure_type": "missing_info",
+        "observed_mismatch": null,
+        "failure_type": null,
+        "failures": []
+      },
+      "tool_results": [
+        {
+          "tool": "clarify",
+          "args": {
+            "question": "Bạn có thể cung cấp link video YouTube mà bạn muốn tóm tắt không?",
+            "response_type": "text"
+          },
+          "result": {
+            "tool": "ask_user",
+            "question": "Bạn có thể cung cấp link video YouTube mà bạn muốn tóm tắt không?",
+            "response_type": "text",
+            "options": [],
+            "awaiting_user": true
+          }
+        }
+      ]
+    }
+  ]
+}
